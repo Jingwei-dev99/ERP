@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ERP System Demo</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      h1 {
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+      }
+      .section {
+        margin: 20px 0;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        border-left: 4px solid #3498db;
+      }
+      .id {
+        font-family: monospace;
+        background-color: #e8f4f8;
+        padding: 2px 6px;
+        border-radius: 3px;
+      }
+      .success {
+        color: #27ae60;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>ERP System Demo</h1>
+      
+      <div class="section">
+        <h2>1. User Authentication</h2>
+        <p>User authenticated successfully</p>
+        <p>User ID: <span class="id">d2550a76-8210-461e-b898-11d6ce30ce9a</span></p>
+      </div>
+
+      <div class="section">
+        <h2>2. Customer Management</h2>
+        <p><strong>New Customer Created</strong></p>
+        <p>Customer ID: <span class="id">e75a7a88-7146-48fd-989c-fe5c26f1f631</span></p>
+        
+        <p><strong>Customer Interaction Created</strong></p>
+        <p>Interaction ID: <span class="id">bc11d81d-58f7-458a-90a3-14e1a3d04099</span></p>
+        
+        <p><strong>Customer Segment Created</strong></p>
+        <p>Segment ID: <span class="id">2d16a12d-bbcd-4692-a718-d2a61a16f0bb</span></p>
+        
+        <p><strong>Verification Results:</strong></p>
+        <ul>
+          <li>Customer successfully added to segment</li>
+          <li>Found interactions: 1</li>
+          <li>Found customers in segment: 1</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>3. Finance Management</h2>
+        <p><strong>Transaction Created</strong></p>
+        <p>Transaction ID: <span class="id">aa77298e-16dc-4b75-a9a0-31fc6a73db42</span></p>
+        
+        <p><strong>Invoice Created</strong></p>
+        <p>Invoice ID: <span class="id">857f0bac-65d2-45d8-acc5-e2a5b8481526</span></p>
+        
+        <p><strong>Payment Created</strong></p>
+        <p>Payment ID: <span class="id">e727fda1-e7c3-4f15-afc0-101561050a76</span></p>
+      </div>
+
+      <div class="section">
+        <h2>4. Search and Filtering</h2>
+        <p>Customer search results:</p>
+        <ul>
+          <li>Total customers found: 9</li>
+          <li>Customers processed: 9</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>Demo Status</h2>
+        <p class="success">✅ Demo completed successfully!</p>
+      </div>
+    </div>
+  </body>
+</html> 
