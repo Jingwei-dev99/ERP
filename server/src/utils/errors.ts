@@ -4,45 +4,42 @@ import { Logger } from './logger';
 /**
  * Base error class for application errors
  */
-export class AppError extends Error {
-  constructor(
-    public message: string,
-    public readonly statusCode: number = 500,
-    public code?: string
-  ) {
+export class BaseError extends Error {
+  code: string;
+  status: number;
+
+  constructor(message: string, code: string = 'INTERNAL_ERROR', status: number = 500) {
     super(message);
-    this.name = this.constructor.name;
-    Error.captureStackTrace(this, this.constructor);
+    this.code = code;
+    this.status = status;
+    Object.setPrototypeOf(this, BaseError.prototype);
   }
 }
 
 /**
  * Error class for database-related errors
  */
-export class DatabaseError extends AppError {
+export class DatabaseError extends BaseError {
   constructor(message: string) {
-    super(message, 500);
-    this.name = 'DatabaseError';
+    super(message, 'DATABASE_ERROR', 500);
   }
 }
 
 /**
  * Error class for validation errors
  */
-export class ValidationError extends AppError {
+export class ValidationError extends BaseError {
   constructor(message: string) {
-    super(message, 400);
-    this.name = 'ValidationError';
+    super(message, 'VALIDATION_ERROR', 400);
   }
 }
 
 /**
  * Error class for not found errors
  */
-export class NotFoundError extends AppError {
+export class NotFoundError extends BaseError {
   constructor(message: string) {
-    super(message, 404);
-    this.name = 'NotFoundError';
+    super(message, 'NOT_FOUND', 404);
   }
 }
 
@@ -57,33 +54,36 @@ export function isPostgresError(error: unknown): error is PostgresError {
   return error instanceof Error && 'code' in error;
 }
 
-export class AuthenticationError extends AppError {
+/**
+ * Error class for authentication errors
+ */
+export class AuthenticationError extends BaseError {
   constructor(message: string) {
-    super(message, 401);
-    this.name = 'AuthenticationError';
+    super(message, 'AUTHENTICATION_ERROR', 401);
   }
 }
 
-export class AuthorizationError extends AppError {
+/**
+ * Error class for authorization errors
+ */
+export class AuthorizationError extends BaseError {
   constructor(message: string) {
-    super(message, 403);
-    this.name = 'AuthorizationError';
+    super(message, 'AUTHORIZATION_ERROR', 403);
   }
 }
 
-export class ConflictError extends AppError {
+/**
+ * Error class for conflict errors
+ */
+export class ConflictError extends BaseError {
   constructor(message: string) {
-    super(message, 409, 'CONFLICT_ERROR');
-    this.name = 'ConflictError';
-    Object.setPrototypeOf(this, ConflictError.prototype);
+    super(message, 'CONFLICT', 409);
   }
 }
 
-export class RateLimitError extends AppError {
+export class RateLimitError extends BaseError {
   constructor(message: string) {
-    super(message, 429, 'RATE_LIMIT_ERROR');
-    this.name = 'RateLimitError';
-    Object.setPrototypeOf(this, RateLimitError.prototype);
+    super(message, 'RATE_LIMIT_ERROR', 429);
   }
 }
 
@@ -122,7 +122,7 @@ export async function withErrorHandling<T>(
   } catch (error: unknown) {
     logger.error(`${operationName}:`, error);
 
-    if (error instanceof AppError) {
+    if (error instanceof BaseError) {
       throw error;
     }
 
@@ -140,6 +140,6 @@ export async function withErrorHandling<T>(
     }
 
     const message = error instanceof Error ? error.message : 'An unknown error occurred';
-    throw new AppError(message);
+    throw new BaseError(message);
   }
 } 

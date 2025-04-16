@@ -1,26 +1,24 @@
 import { Router } from 'express';
 import { CustomerController } from '../controllers/customer.controller';
-import { CustomerService } from '../services/customer.service';
-import { pool } from '../config/database';
+import { authenticateToken } from '../middleware/auth.middleware';
+import pool from '../config/database';
 
 const router = Router();
-const customerService = new CustomerService(pool);
-const customerController = new CustomerController(customerService);
+const customerController = new CustomerController(pool);
 
-// 客户管理路由
-router.post('/', customerController.createCustomer.bind(customerController));
-router.put('/:id', customerController.updateCustomer.bind(customerController));
-router.get('/:id', customerController.getCustomer.bind(customerController));
-router.get('/', customerController.searchCustomers.bind(customerController));
+// Apply authentication middleware to all routes
+router.use(authenticateToken);
 
-// 客户互动路由
-router.post('/:customerId/interactions', customerController.createInteraction.bind(customerController));
-router.get('/:customerId/interactions', customerController.getCustomerInteractions.bind(customerController));
+// Create a new customer
+router.post('/', (req, res, next) => customerController.createCustomer(req, res, next));
 
-// 客户分类路由
-router.post('/segments', customerController.createSegment.bind(customerController));
-router.post('/segments/:segmentId/customers/:customerId', customerController.addCustomerToSegment.bind(customerController));
-router.get('/segments/:segmentId/customers', customerController.getSegmentCustomers.bind(customerController));
-router.get('/segments', customerController.getSegments.bind(customerController));
+// Get all customers
+router.get('/', (req, res, next) => customerController.getAllCustomers(req, res, next));
+
+// Create a customer interaction
+router.post('/:customerId/interactions', (req, res, next) => customerController.createInteraction(req, res, next));
+
+// Create a customer segment
+router.post('/segments', (req, res, next) => customerController.createSegment(req, res, next));
 
 export default router; 
