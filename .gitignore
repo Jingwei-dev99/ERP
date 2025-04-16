@@ -6,3 +6,5 @@ dist/
 coverage/
 .idea/
 .vscode/ 
+# Local Netlify folder
+.netlify
