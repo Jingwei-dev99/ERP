@@ -24,6 +24,13 @@ export default defineConfig({
         },
       },
     },
+    target: 'esnext',
+    sourcemap: true
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'esnext'
+    }
   },
   esbuild: {
     jsxFactory: 'React.createElement',
