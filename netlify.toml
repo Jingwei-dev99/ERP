@@ -1,5 +1,5 @@
 [build]
-command = "CI=false NODE_OPTIONS=--openssl-legacy-provider npm install --legacy-peer-deps && CI=false NODE_OPTIONS=--openssl-legacy-provider npm run build"
+command = "CI=false npm install --legacy-peer-deps && CI=false npm run build"
 publish = "dist"
 
 [build.environment]
