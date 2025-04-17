@@ -1,7 +1,8 @@
+import React from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
-import { theme } from './theme';
+import theme from './theme';
 import MainLayout from './layouts/MainLayout';
 import Dashboard from './pages/Dashboard';
 import FinancePage from './pages/FinancePage';
